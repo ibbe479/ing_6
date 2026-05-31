@@ -1,22 +1,21 @@
 import { useState } from "react";
 import "./App.css";
-import Add_movie from "./Add_movie";
+import GetMovie from "./GetMovie";
+import AddMovie from "./AddMovie";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [movies, setMovies] = useState([]);
 
   return (
     <div className="container">
       <div>
         <h1 className="test">Min filmlista</h1>
-        <Add_movie />
+        <GetMovie movies={movies} setMovies={setMovies} />
         <hr />
 
         <h2>Filmer</h2>
 
-        <ul id="movies">
-          <li>hej</li>
-        </ul>
+        <AddMovie movies={movies} setMovies={setMovies} />
       </div>
     </div>
   );
