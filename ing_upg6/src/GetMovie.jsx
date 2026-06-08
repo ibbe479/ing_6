@@ -1,39 +1,42 @@
 import { useState } from "react";
 import "./app.css";
-import "./images/star.png";
-import "./images/delete.png";
 
-function GetMovie(e) {
+function GetMovie() {
   const [title, setTitle] = useState("");
   const [rating, setRating] = useState("0");
+  const [movieList, setMoviesList] = useState(() => {
+    const movies = localStorage.getItem("movies");
+    if (movies) {
+      return JSON.parse(movies);
+    } else {
+      localStorage.setItem("movies", JSON.stringify([]));
+      return [];
+    }
+  });
 
   function getTitleRaiting(e) {
     e.preventDefault();
-    const title = document.getElementById("title-field").value;
-    const rating = document.getElementById("rating-field").value;
-    setTitle(title);
-    setRating(rating);
+
     if (title === "") {
-      window.alert("Du måste ange en titel för att kunna spara filmen");
-      return false;
+      alert("Du måste ange en titel!");
+      return;
     }
-
     if (rating === "0") {
-      window.alert("Du måste ange ett betyg för att kunna spara filmen");
-      return false;
+      alert("Du måste välja ett betyg!");
+      return;
     }
-    document.getElementById("title-field").value = "";
-    document.getElementById("rating-field").value = "0";
-    console.log(title, rating);
-    return { title, rating };
-  }
 
-  function putStars(rating) {
-    const numberStars = Number(rating);
-    const newStars = "<img src='images/star.png' alt='Star'>".repeat(
-      numberStars,
-    );
-    return newStars;
+    const newMovie = { title: title, rating: rating };
+    const updatedMovies = [...movieList, newMovie];
+
+    setMoviesList(updatedMovies);
+
+    localStorage.setItem("movies", JSON.stringify(updatedMovies));
+
+    setRating("0");
+    setTitle("");
+
+    window.location.reload();
   }
 
   return (
@@ -41,12 +44,22 @@ function GetMovie(e) {
       <fieldset>
         <legend>Lägg till en film</legend>
 
-        <label for="title-field">Titel:</label>
-        <input type="text" id="title-field" className="form-control" />
+        <label>Titel:</label>
+        <input
+          type="text"
+          id="title-field"
+          className="form-control"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
-        <label for="rating-field">Betyg:</label>
-
-        <select type="text" id="rating-field" className="form-control">
+        <label>Betyg:</label>
+        <select
+          id="rating-field"
+          className="form-control"
+          value={rating}
+          onChange={(e) => setRating(e.target.value)}
+        >
           <option value="0">Välj betyg här...</option>
           <option value="1">1</option>
           <option value="2">2</option>

@@ -1,17 +1,27 @@
 import { useState } from "react";
 import "./app.css";
-import "./images/star.png";
-import "./images/delete.png";
-import GetMovie from "./GetMovie";
 
 function AddMovie() {
-  function saveMovie() {
-    const movieList = document.getElementById("movies");
-    const newMovie = document.createElement("li");
-    newMovie.innerHTML = `${GetMovie.getTitleRaiting(title)} ${GetMovie.putStars(rating)} <img src='images/delete.png' alt='Delete' class='delete-btn'>`;
-    movieList.appendChild(newMovie);
+  const [movieList, setMoviesList] = useState(() =>
+    JSON.parse(localStorage.getItem("movies")),
+  );
+
+  if (movieList.length === 0) {
+    return <p>Du har inte lagt till några filmer än!</p>;
   }
-  return <ul id="movies"></ul>;
+
+  return (
+    <div>
+      <h2>Filmer i din lista:</h2>
+      <ul>
+        {movieList.map((movie, index) => (
+          <li key={index}>
+            {movie.title} - Betyg: {movie.rating}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export default AddMovie;

@@ -10,12 +10,9 @@ function App() {
     <div className="container">
       <div>
         <h1 className="test">Min filmlista</h1>
-        <GetMovie movies={movies} setMovies={setMovies} />
+        <GetMovie />
         <hr />
-
-        <h2>Filmer</h2>
-
-        <AddMovie movies={movies} setMovies={setMovies} />
+        <AddMovie />
       </div>
     </div>
   );
