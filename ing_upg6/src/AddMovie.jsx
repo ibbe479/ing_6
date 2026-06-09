@@ -28,6 +28,7 @@ function AddMovie() {
 
     setMoviesList(nyLista);
     localStorage.setItem("movies", JSON.stringify(nyLista));
+    window.location.reload();
   }
   return (
     <div>

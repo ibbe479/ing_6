@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import GetMovie from "./GetMovie";
 import AddMovie from "./AddMovie";
+import SortMovies from "./SortMovies";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -13,6 +14,7 @@ function App() {
         <GetMovie />
         <hr />
         <AddMovie />
+        <SortMovies />
       </div>
     </div>
   );
